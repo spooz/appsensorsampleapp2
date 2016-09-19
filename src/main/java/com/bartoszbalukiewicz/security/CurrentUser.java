@@ -13,6 +13,9 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     public CurrentUser(User user) {
         super(user.getEmail(), user.getPassword(), AuthorityUtils.NO_AUTHORITIES);
+    }
 
+    public CurrentUser(User user, Collection<? extends GrantedAuthority> auths) {
+        super(user.getEmail(), user.getPassword(), auths);
     }
 }
