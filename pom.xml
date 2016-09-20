@@ -66,6 +66,12 @@
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.21</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

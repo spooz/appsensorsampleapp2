@@ -28,6 +28,6 @@ public class CurrentUserDetailsService implements UserDetailsService{
         if(user == null)
             throw new UsernameNotFoundException("User not found");
 
-        return new CurrentUser(user, SecurityUtils.getAuthorities(user.getRoles()));
+        return new CurrentUser(user, SecurityUtils.getAuthorities(userService.getUserRoles(user.getEmail())));
     }
 }

@@ -1,9 +1,13 @@
 package com.bartoszbalukiewicz.service;
 
+import com.bartoszbalukiewicz.form.RegisterForm;
+import com.bartoszbalukiewicz.model.Role;
 import com.bartoszbalukiewicz.model.User;
 import com.bartoszbalukiewicz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * Created by Bartek on 18.09.2016.
@@ -20,5 +24,16 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public Set<Role> getUserRoles(String email) {return userRepository.findByEmail(email).getRoles();}
+
+    public User registerUser(RegisterForm form) {
+        User user = new User();
+        user.setEmail(form.getEmail());
+        user.setPassword(form.getPassword());
+        user.hashPassword();
+        userRepository.save(user);
+        return user;
     }
 }
