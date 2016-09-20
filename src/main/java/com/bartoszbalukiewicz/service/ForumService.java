@@ -1,5 +1,6 @@
 package com.bartoszbalukiewicz.service;
 
+import com.bartoszbalukiewicz.form.MessageForm;
 import com.bartoszbalukiewicz.form.TopicForm;
 import com.bartoszbalukiewicz.model.Message;
 import com.bartoszbalukiewicz.model.Topic;
@@ -22,7 +23,7 @@ public class ForumService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public List<Topic> getTopis() {
+   /* public List<Topic> getTopis() {
         return topicRepository.findAll();
     }
 
@@ -44,6 +45,6 @@ public class ForumService {
 
     public Message editMessage(Long messageId, MessageForm form) {
 
-    }
+    }*/
 
 }
