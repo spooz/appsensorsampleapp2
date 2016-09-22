@@ -1,6 +1,8 @@
 package com.bartoszbalukiewicz.model;
 
 import javax.persistence.*;
+import java.time.DateTimeException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,12 +23,13 @@ public class Topic {
     @Column
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+    @Column
+    private String author;
 
     @OneToMany(mappedBy = "topic")
     private List<Message> messages;
+
+    private Date created = new Date();
 
     public String getTitle() {
         return title;
@@ -45,11 +48,19 @@ public class Topic {
         this.description = description;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
