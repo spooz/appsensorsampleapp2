@@ -5,11 +5,14 @@ package com.bartoszbalukiewicz.model.view;
  */
 public class TopicView {
 
+    private Long id;
+
     private String title;
     private String description;
     private String author;
 
-    public TopicView(String title, String description, String author) {
+    public TopicView(Long id,String title, String description, String author) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
@@ -38,4 +41,15 @@ public class TopicView {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
 }

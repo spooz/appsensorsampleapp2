@@ -1,6 +1,7 @@
 package com.bartoszbalukiewicz.repository;
 
 import com.bartoszbalukiewicz.model.Message;
+import com.bartoszbalukiewicz.model.view.MessageView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +15,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @Query("SELECT m FROM Message m WHERE m.topic.id = :topicId")
-    List<Message> getMessagesByTopicId(@Param(value = "topicId") Long topicId);
+    @Query("SELECT new com.bartoszbalukiewicz.model.view.MessageView(m.id, m.title, m.message, m.author) FROM Message m WHERE m.topic.id = :topicId")
+    List<MessageView> getMessagesByTopicId(@Param(value = "topicId") Long topicId);
 
 }

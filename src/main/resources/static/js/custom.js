@@ -6,14 +6,12 @@ function showTopicModal() {
 function submitTopicModal() {
     var form = $("#topic_form");
 
-    alert(form.serializeArray());
-
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var data = $("#topic_form").serializeObject();
 
     $.ajax({
-        url: "/topic/add",
+        url: "/json/topic/add",
         type: "POST",
         contentType: "application/json",
         beforeSend: function(xhr) {
@@ -21,27 +19,25 @@ function submitTopicModal() {
         },
         data : JSON.stringify(data),
         success: function() {
-
-           /* swal({
-                title: i18n.t("asset_list_monitoring_success"),
+            swal({
+                title: "Topic added",
                 confirmButtonColor: "#2196F3",
                 type: "success"
-            }, function() {
-                $("#modal_add_to_monitoring").modal("hide");
-                reloadTable();
-            });*/
+            });
 
-           alert("OK");
+            reloadTopicTable();
+            $("#topicModal").modal("hide");
+
         },
         error: function (xhr, ajaxOptions, thrownError) {
-          /*  var message = xhr.responseText === "" ? i18n.t("asset_list_monitoring_error") : xhr.responseText
+
             swal({
-                title: message,
+                title: "error",
                 confirmButtonColor: "#2196F3",
                 type: "error"
-            });*/
+            });
 
-          alert("ERROR");
+
         }
 
     });
@@ -75,9 +71,24 @@ $.fn.serializeObject = function() {
     return objectData;
 };
 
+function reloadTopicTable() {
+    var table = $("#topics-datatable").DataTable();
+    table.ajax.reload();
+}
+
+
 function initTopicTable() {
     $("#topics-datatable").DataTable({
-        "ajax":"/topic/all",
+        "ajax":"/json/topic/all",
+        "columns" : [
+            {"data":"title",
+                "fnCreatedCell" : function(nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='/topic/" + oData.id +"/messages'>" + oData.title + "</a>");
+                }
+            },
+            {"data" : "description"},
+            {"data" : "author"}
+        ]
     });
 }
 

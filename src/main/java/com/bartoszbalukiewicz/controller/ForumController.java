@@ -15,7 +15,8 @@ package com.bartoszbalukiewicz.controller;
 /**
  * Created by postgres on 2016-09-20.
          */
-@Controller
+@RestController
+@RequestMapping("/json")
 public class ForumController {
 
     @Autowired
@@ -31,10 +32,16 @@ public class ForumController {
     }
 
     @GetMapping(value="/topic/all", produces= "application/json")
-    @ResponseBody
     public String getTopics() {
         JSONObject data = new JSONObject();
         data.put("data", forumService.getAll());
+        return data.toString();
+    }
+
+    @GetMapping(value="/topic/{topicId}/messages", produces = "application/json")
+    public String getMessagesForTopic(@PathVariable(value = "topicId") Long topicId) {
+        JSONObject data = new JSONObject();
+        data.put("data", forumService.getMessagesForTopic(topicId));
         return data.toString();
     }
 }

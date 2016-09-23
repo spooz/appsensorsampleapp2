@@ -16,6 +16,6 @@ import java.util.List;
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Long>{
 
-    @Query("SELECT new com.bartoszbalukiewicz.model.view.TopicView(t.title, t.description, t.author) FROM Topic t ORDER BY created DESC")
+    @Query("SELECT new com.bartoszbalukiewicz.model.view.TopicView(t.id, t.title, t.description, t.author) FROM Topic t ORDER BY created ASC")
     List<TopicView> getAll();
 }

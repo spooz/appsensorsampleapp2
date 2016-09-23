@@ -20,9 +20,8 @@ public class Message {
     @Column
     private String message;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+    @Column
+    private String author;
 
     @ManyToOne
     @JoinColumn(name = "topic_id")
@@ -44,11 +43,11 @@ public class Message {
         this.message = message;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 

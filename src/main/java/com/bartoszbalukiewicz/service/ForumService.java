@@ -4,6 +4,7 @@ import com.bartoszbalukiewicz.form.MessageForm;
 import com.bartoszbalukiewicz.form.TopicForm;
 import com.bartoszbalukiewicz.model.Message;
 import com.bartoszbalukiewicz.model.Topic;
+import com.bartoszbalukiewicz.model.view.MessageView;
 import com.bartoszbalukiewicz.model.view.TopicView;
 import com.bartoszbalukiewicz.repository.MessageRepository;
 import com.bartoszbalukiewicz.repository.TopicRepository;
@@ -41,6 +42,12 @@ public class ForumService {
     public List<TopicView> getAll() {
         return topicRepository.getAll();
     }
+
+    //TODO: CHECH IF TOPIC EXSITS
+    public List<MessageView> getMessagesForTopic(Long topicId) {
+        return messageRepository.getMessagesByTopicId(topicId);
+    }
+
 
    /* public List<Topic> getTopis() {
         return topicRepository.findAll();
