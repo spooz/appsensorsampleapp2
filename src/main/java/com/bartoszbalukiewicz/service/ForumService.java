@@ -11,6 +11,7 @@ import com.bartoszbalukiewicz.repository.TopicRepository;
 import com.bartoszbalukiewicz.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class ForumService {
     @Autowired
     private UserService userService;
 
+    @Transactional
     public Topic createTopic(TopicForm form) {
         Topic topic = new Topic();
         topic.setTitle(form.getTitle());
@@ -46,6 +48,20 @@ public class ForumService {
     //TODO: CHECH IF TOPIC EXSITS
     public List<MessageView> getMessagesForTopic(Long topicId) {
         return messageRepository.getMessagesByTopicId(topicId);
+    }
+
+    @Transactional
+    public Message createMessage(MessageForm form, Long topicId) {
+        Topic topic = topicRepository.findOne(topicId);
+        Message message = new Message();
+        message.setTitle(form.getTitle());
+        message.setMessage(form.getMessage());
+        message.setAuthor(SecurityUtils.getAuthenticatedUserName());
+        message.setTopic(topic);
+
+        messageRepository.save(message);
+
+        return message;
     }
 
 

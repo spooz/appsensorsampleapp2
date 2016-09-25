@@ -29,6 +29,7 @@ public class Topic {
     @OneToMany(mappedBy = "topic")
     private List<Message> messages;
 
+    @Column
     private Date created = new Date();
 
     public String getTitle() {

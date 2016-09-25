@@ -11,7 +11,7 @@ function submitTopicModal() {
     var data = $("#topic_form").serializeObject();
 
     $.ajax({
-        url: "/json/topic/add",
+        url: "/topic/add",
         type: "POST",
         contentType: "application/json",
         beforeSend: function(xhr) {
@@ -79,7 +79,7 @@ function reloadTopicTable() {
 
 function initTopicTable() {
     $("#topics-datatable").DataTable({
-        "ajax":"/json/topic/all",
+        "ajax":"/topic/all",
         "columns" : [
             {"data":"title",
                 "fnCreatedCell" : function(nTd, sData, oData, iRow, iCol) {

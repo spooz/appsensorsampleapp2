@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+    <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <meta name="_csrf" th:content="${_csrf.token}"/>
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -63,7 +63,7 @@
                 <h4 class="modal-title">Add topic</h4>
             </div>
             <div class="modal-body">
-                <form id="topic_form">
+                <form id="topic_form" th:object="${registerForm}">
 
                     <div class="form-group">
                         <label class="control-label">Title</label>

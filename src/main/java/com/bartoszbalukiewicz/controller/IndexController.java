@@ -1,5 +1,7 @@
 package com.bartoszbalukiewicz.controller;
 
+import com.bartoszbalukiewicz.service.ForumService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private ForumService forumService;
+
     @GetMapping("/")
     public String index() {
         return "index";
     }
 
-    @GetMapping("/topic/{topicId}/messages")
-    public String messages (@PathVariable("topicId") Long topicId, Model model){
-        model.addAttribute("topicId", topicId);
-        return "messages";
-    }
 
     @GetMapping("/login")
         public String login() {

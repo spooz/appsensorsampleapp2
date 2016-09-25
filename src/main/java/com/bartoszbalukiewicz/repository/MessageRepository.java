@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    @Query("SELECT new com.bartoszbalukiewicz.model.view.MessageView(m.id, m.title, m.message, m.author) FROM Message m WHERE m.topic.id = :topicId")
+    @Query("SELECT new com.bartoszbalukiewicz.model.view.MessageView(m.id, m.title, m.message, m.author, m.created) FROM Message m WHERE m.topic.id = :topicId ORDER BY created ASC")
     List<MessageView> getMessagesByTopicId(@Param(value = "topicId") Long topicId);
 
 }

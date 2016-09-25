@@ -1,6 +1,7 @@
 package com.bartoszbalukiewicz.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by postgres on 2016-09-20.
@@ -26,6 +27,9 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "topic_id")
     private Topic topic;
+
+    @Column
+    private Date created = new Date();
 
     public String getTitle() {
         return title;
@@ -57,5 +61,13 @@ public class Message {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }
