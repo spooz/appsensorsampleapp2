@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ForumSecurityService {
 
-    public boolean canDeleteTopic(Long topicId) {
+ /*   public boolean canDeleteTopic(Long topicId) {
 
 
     }
-
+*/
 
 }
