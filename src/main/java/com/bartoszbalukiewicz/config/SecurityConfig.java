@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.config;
 
-import com.bartoszbalukiewicz.security.appsensor.context.AppSensorSecurityContextRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
@@ -33,17 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
 
-    @Bean
+   /* @Bean
     public SecurityContextRepository securityContextRepository(){
         return new AppSensorSecurityContextRepository();
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/img/*", "/font-awesome/*", "/register").permitAll().anyRequest().fullyAuthenticated().
                 and().formLogin().loginPage("/login").usernameParameter("email").passwordParameter("password").successHandler(authenticationSuccessHandler).failureUrl("/login?error").permitAll()
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll().and().securityContext().securityContextRepository(securityContextRepository());
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
     }
 
     @Override

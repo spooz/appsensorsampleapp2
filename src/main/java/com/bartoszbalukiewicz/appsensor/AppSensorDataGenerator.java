@@ -4,12 +4,18 @@ import com.bartoszbalukiewicz.AppsensorSampleAppApplication;
 import com.google.gson.Gson;
 import org.owasp.appsensor.core.*;
 import org.owasp.appsensor.core.geolocation.GeoLocation;
+import org.owasp.appsensor.event.RestEventManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.Random;
 
 /**
  * Created by postgres on 2016-09-26.
  */
+@Component
 public class AppSensorDataGenerator {
     private Gson gson = new Gson();
 
@@ -27,11 +33,8 @@ public class AppSensorDataGenerator {
     private DetectionSystem detectionSystem = new DetectionSystem("myclientapp");
 
 
-    private com.bartoszbalukiewicz.appsensor.RestEventManager eventManager;
-
-    public AppSensorDataGenerator(com.bartoszbalukiewicz.appsensor.RestEventManager eventManager) {
-        this.eventManager = eventManager;
-    }
+    @Autowired
+    private RestEventManager eventManager;
 
     public void execute() {
 //		System.err.println("-- " + gson.toJson(bob));
