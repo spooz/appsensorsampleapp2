@@ -1,4 +1,4 @@
-package com.bartoszbalukiewicz.security;
+package com.bartoszbalukiewicz.appsensor;
 
 import org.owasp.appsensor.core.AppSensorClient;
 import org.owasp.appsensor.core.Attack;

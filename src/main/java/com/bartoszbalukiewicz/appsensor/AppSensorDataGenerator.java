@@ -1,15 +1,10 @@
-package com.bartoszbalukiewicz.security;
+package com.bartoszbalukiewicz.appsensor;
 
 import com.bartoszbalukiewicz.AppsensorSampleAppApplication;
 import com.google.gson.Gson;
 import org.owasp.appsensor.core.*;
 import org.owasp.appsensor.core.geolocation.GeoLocation;
-import org.owasp.appsensor.event.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.util.Random;
 
 /**
@@ -32,9 +27,9 @@ public class AppSensorDataGenerator {
     private DetectionSystem detectionSystem = new DetectionSystem("myclientapp");
 
 
-    private RestEventManager eventManager;
+    private com.bartoszbalukiewicz.appsensor.RestEventManager eventManager;
 
-    public AppSensorDataGenerator(RestEventManager eventManager) {
+    public AppSensorDataGenerator(com.bartoszbalukiewicz.appsensor.RestEventManager eventManager) {
         this.eventManager = eventManager;
     }
 
