@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Created by postgres on 2016-09-26.
  */
-@Component
+/*@Component*/
 public class AppSensorDataGenerator {
     private Gson gson = new Gson();
 

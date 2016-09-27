@@ -16,7 +16,7 @@ public class NoopResponseHandler implements ResponseHandler {
      */
     @Override
     public void handle(Response response) {
-        //
+        System.out.println("RESPONSE !!!!");
     }
 
 }

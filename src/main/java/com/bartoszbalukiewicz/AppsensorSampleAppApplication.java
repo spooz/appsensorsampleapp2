@@ -19,10 +19,8 @@ public class AppsensorSampleAppApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(AppsensorSampleAppApplication.class, args);
-		for(String bean : context.getBeanDefinitionNames())
-			System.out.println(bean);
-		AppSensorDataGenerator simpleGenerator = context.getBean(AppSensorDataGenerator.class);
-		simpleGenerator.execute();
+		//AppSensorDataGenerator simpleGenerator = context.getBean(AppSensorDataGenerator.class);
+		//simpleGenerator.execute();
 	}
 
 }
