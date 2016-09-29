@@ -1,8 +1,6 @@
 package com.bartoszbalukiewicz.appsensor.security.event;
 
-import com.bartoszbalukiewicz.appsensor.security.user.User;
 import org.owasp.appsensor.core.*;
-import org.owasp.appsensor.core.event.EventManager;
 import org.owasp.appsensor.event.RestEventManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
@@ -58,7 +56,7 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
                 return;
             }
 
-            User user = new User(userAddress.getAddressAsString(), userAddress, locator);
+            User user = new User(userAddress.getAddressAsString(), userAddress);
             // AE3: High Rate of Login Attempts
             DetectionPoint detectionPoint = new DetectionPoint(DetectionPoint.Category.AUTHENTICATION, "AE4");
             ids.addEvent(new Event(user, detectionPoint, getDetectionSystem()));
@@ -71,7 +69,7 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
             Authentication authentication = event.getAuthentication();
             IPAddress userAddress = getUserIp(authentication);
 
-            User user = new User(getUserName(authentication), userAddress, locator);
+            User user = new User(getUserName(authentication), userAddress);
             // AE3: High Rate of Login Attempts
             DetectionPoint detectionPoint = new DetectionPoint(DetectionPoint.Category.SYSTEM_TREND, "STE2");
             ids.addEvent(new Event(user, detectionPoint, getDetectionSystem()));
@@ -101,7 +99,7 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
                     continue;
                 }
 
-                User user = new User(userName, userAddress, locator);
+                User user = new User(userName, userAddress);
                 // STE1: High Number of Logouts Across The Site
                 DetectionPoint detectionPoint = new DetectionPoint(DetectionPoint.Category.SYSTEM_TREND, "STE1");
                 ids.addEvent(new Event(user, detectionPoint, getDetectionSystem()));
