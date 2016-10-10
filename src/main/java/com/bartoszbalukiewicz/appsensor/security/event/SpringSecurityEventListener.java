@@ -147,7 +147,8 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
     }
 
     private String getApplicationIp() {
-        if (cachedIp != null) {
+        return "192.168.1.1";
+       /* if (cachedIp != null) {
             return cachedIp;
         }
 
@@ -177,7 +178,7 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
             // ignore this exception
         }
 
-        return ip;
+        return ip;*/
     }
 
 }
