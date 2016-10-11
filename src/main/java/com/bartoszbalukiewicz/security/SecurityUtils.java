@@ -42,4 +42,8 @@ public class SecurityUtils {
         return auth == null ? "" : auth.getName();
     }
 
+    public static Authentication getAuthentiaction() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
 }

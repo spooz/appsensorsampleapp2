@@ -1,10 +1,17 @@
 package com.bartoszbalukiewicz.appsensor.security.event;
 
+import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointAE3Event;
+import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointEvent;
+import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointSTE2Event;
+import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
 import org.owasp.appsensor.core.*;
 import org.owasp.appsensor.event.RestEventManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -28,7 +35,7 @@ import java.util.List;
  * Created by postgres on 2016-09-27.
  */
 @Component
-public class SpringSecurityEventListener  implements ApplicationListener<ApplicationEvent> {
+public class SpringSecurityEventListener  {
 
     @Autowired
     private transient IPAddress locator;
@@ -39,41 +46,32 @@ public class SpringSecurityEventListener  implements ApplicationListener<Applica
     @Autowired
     private RestEventManager ids;
 
+
+    @Autowired
+    private AppSensorDetectionPointEventPublisher eventPublisher;
+
     private static String cachedIp = null;
 
-    @Override
+
+
+    @Async
+    @EventListener
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
 
         // process event
+        //TODO TEST
         if (applicationEvent instanceof AbstractAuthenticationFailureEvent) {
 
             AbstractAuthenticationFailureEvent event = (AbstractAuthenticationFailureEvent)applicationEvent;
-
-            IPAddress userAddress = getUserIp(event.getAuthentication());
-
-            // if we fail authentication and can't get the IP, just skip this event
-            if (userAddress == null) {
-                return;
-            }
-
-            User user = new User(userAddress.getAddressAsString(), userAddress);
-            // AE3: High Rate of Login Attempts
-            DetectionPoint detectionPoint = new DetectionPoint(DetectionPoint.Category.AUTHENTICATION, "AE4");
-            ids.addEvent(new Event(user, detectionPoint, getDetectionSystem()));
+            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointAE3Event(), event.getAuthentication());
 
         } else if (applicationEvent instanceof AuthenticationSuccessEvent || applicationEvent instanceof InteractiveAuthenticationSuccessEvent) {
 
             // STE2: High Number of Logins Across The Site
             AbstractAuthenticationEvent event = (AbstractAuthenticationEvent)applicationEvent;
+            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointSTE2Event(), event.getAuthentication());
 
-            Authentication authentication = event.getAuthentication();
-            IPAddress userAddress = getUserIp(authentication);
-
-            User user = new User(getUserName(authentication), userAddress);
-            // AE3: High Rate of Login Attempts
-            DetectionPoint detectionPoint = new DetectionPoint(DetectionPoint.Category.SYSTEM_TREND, "STE2");
-            ids.addEvent(new Event(user, detectionPoint, getDetectionSystem()));
-
+            //TODO
         } else if (applicationEvent instanceof SessionDestroyedEvent) {
 
             SessionDestroyedEvent event = (SessionDestroyedEvent)applicationEvent;
