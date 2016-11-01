@@ -65,6 +65,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
@@ -150,6 +155,34 @@
 					<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
 		  			<artifactId>jersey-guava</artifactId>
 				</exclusion>-->
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.owasp.appsensor</groupId>
+			<artifactId>appsensor-reporting-websocket</artifactId>
+			<version>${appsensor.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.owasp.appsensor</groupId>
+					<artifactId>appsensor-local</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax</groupId>
+					<artifactId>javaee-web-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.websocket</groupId>
+					<artifactId>javax.websocket-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish.tyrus</groupId>
+					<artifactId>tyrus-server</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish.tyrus</groupId>
+					<artifactId>tyrus-client</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
