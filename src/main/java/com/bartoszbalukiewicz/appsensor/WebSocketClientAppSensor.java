@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.websocket.*;
 import java.net.URI;
+import java.util.Map;
 
 /**
  * Created by Bartek on 01.11.2016.
@@ -54,8 +55,10 @@ public class WebSocketClientAppSensor {
     public String onMessage(String message, Session session) {
 
         WebSocketJsonObject object = gson.fromJson(message, WebSocketJsonObject.class);
-        if(object.getDataType() .equals("response"))
+        if(object.getDataType().equals("response"))
             logger.info("GOT MESSAGE FROM APP SENSOR SERVER: " + message);
+
+        Response response = (Response) object.getDataValue();
 
         return null;
     }
