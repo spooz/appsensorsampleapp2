@@ -3,6 +3,7 @@ package com.bartoszbalukiewicz.appsensor.security.response;
 import org.owasp.appsensor.core.User;
 import org.owasp.appsensor.core.response.UserManager;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,7 +26,7 @@ import java.util.Collection;
 @Primary
 public class SpringSecurityUserManager implements UserManager {
 
-    private Logger logger;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private AuthenticationManagerBuilder builder;
