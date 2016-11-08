@@ -37,6 +37,7 @@ public class NoopResponseHandler implements ResponseHandler {
         }
 
         if(action.equals(DISABLE_USER)) {
+            springSecurityUserManager.logout(user);
             springSecurityUserManager.disable(user);
             logger.info("Disabling user: " + user.getUsername());
         }

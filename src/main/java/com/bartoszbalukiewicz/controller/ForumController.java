@@ -2,6 +2,7 @@ package com.bartoszbalukiewicz.controller;
 
         import com.bartoszbalukiewicz.form.MessageForm;
         import com.bartoszbalukiewicz.form.TopicForm;
+        import com.bartoszbalukiewicz.form.validator.MessageFormValidator;
         import com.bartoszbalukiewicz.service.ForumService;
         import org.json.JSONObject;
         import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ package com.bartoszbalukiewicz.controller;
         import org.springframework.stereotype.Controller;
         import org.springframework.ui.Model;
         import org.springframework.validation.BindingResult;
+        import org.springframework.web.bind.WebDataBinder;
         import org.springframework.web.bind.annotation.*;
 
         import javax.validation.Valid;
@@ -22,6 +24,14 @@ public class ForumController {
 
     @Autowired
     private ForumService forumService;
+
+    @Autowired
+    private MessageFormValidator messageFormValidator;
+
+    @InitBinder("messageForm")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(messageFormValidator);
+    }
 
     @PostMapping("/topic/add")
     @ResponseStatus(HttpStatus.OK)
@@ -49,7 +59,9 @@ public class ForumController {
     }
 
     @PostMapping("/topic/{topicId}/messages")
-    public String addMessage(@PathVariable(value="topicId") Long topicId, @Valid MessageForm messageForm) {
+    public String addMessage(@PathVariable(value="topicId") Long topicId, @ModelAttribute @Valid MessageForm messageForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors())
+            return "redirect:/topic/" + topicId + "/messages";
 
         forumService.createMessage(messageForm, topicId);
         return "redirect:/topic/" + topicId + "/messages";
