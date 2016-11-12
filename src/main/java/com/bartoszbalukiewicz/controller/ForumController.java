@@ -3,6 +3,7 @@ package com.bartoszbalukiewicz.controller;
         import com.bartoszbalukiewicz.form.MessageForm;
         import com.bartoszbalukiewicz.form.TopicForm;
         import com.bartoszbalukiewicz.form.validator.MessageFormValidator;
+        import com.bartoszbalukiewicz.form.validator.TopicFormValidator;
         import com.bartoszbalukiewicz.service.ForumService;
         import org.json.JSONObject;
         import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,26 @@ public class ForumController {
     @Autowired
     private MessageFormValidator messageFormValidator;
 
+    @Autowired
+    private TopicFormValidator topicFormValidator;
+
     @InitBinder("messageForm")
-    public void initBinder(WebDataBinder binder) {
+    public void initBinderMessage(WebDataBinder binder) {
         binder.addValidators(messageFormValidator);
+    }
+
+    @InitBinder("topicForm")
+    public void initBinderTopic(WebDataBinder binder) {
+        binder.addValidators(topicFormValidator);
     }
 
     @PostMapping("/topic/add")
     @ResponseStatus(HttpStatus.OK)
-    public void addTopic(@RequestBody @Valid TopicForm form,  BindingResult bindingResult) {
+    public void addTopic(@RequestBody @Valid TopicForm topicForm,  BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return;
 
-        forumService.createTopic(form);
+        forumService.createTopic(topicForm);
     }
 
     @GetMapping(value="/topic/all", produces= "application/json")

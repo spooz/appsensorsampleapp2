@@ -33,7 +33,7 @@ public class MessageFormValidator implements Validator {
 
     }
 
-    public void validateXSS(MessageForm form, Errors errors) {
+    private void validateXSS(MessageForm form, Errors errors) {
         if(ValidationUtils.isHtml(form.getMessage()) || ValidationUtils.isHtml(form.getTitle())) {
             errors.reject("XSS Atempt");
             eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointIE1Event());

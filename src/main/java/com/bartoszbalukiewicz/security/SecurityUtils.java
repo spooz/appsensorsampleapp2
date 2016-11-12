@@ -1,6 +1,5 @@
 package com.bartoszbalukiewicz.security;
 
-import com.bartoszbalukiewicz.model.Role;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,15 +15,6 @@ import java.util.Set;
  * Created by postgres on 2016-09-19.
  */
 public class SecurityUtils {
-
-    public static Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for(Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getTypeAsString()));
-        }
-
-        return authorities;
-    }
 
     public static CurrentUser getAuthenticatedCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

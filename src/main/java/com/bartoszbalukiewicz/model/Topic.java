@@ -26,7 +26,7 @@ public class Topic {
     @Column
     private String author;
 
-    @OneToMany(mappedBy = "topic")
+    @OneToMany(mappedBy = "topic",cascade = CascadeType.REMOVE)
     private List<Message> messages;
 
     @Column

@@ -10,6 +10,7 @@ import com.bartoszbalukiewicz.repository.MessageRepository;
 import com.bartoszbalukiewicz.repository.TopicRepository;
 import com.bartoszbalukiewicz.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +44,11 @@ public class ForumService {
 
     public List<TopicView> getAll() {
         return topicRepository.getAll();
+    }
+
+    @PreAuthorize("@securityService.isAdmin()")
+    public void deleteTopic(Long id) {
+        topicRepository.delete(id);
     }
 
     //TODO: CHECH IF TOPIC EXSITS
