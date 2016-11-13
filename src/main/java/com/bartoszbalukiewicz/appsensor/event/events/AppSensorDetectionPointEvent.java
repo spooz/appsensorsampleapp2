@@ -1,4 +1,4 @@
-package com.bartoszbalukiewicz.appsensor.event;
+package com.bartoszbalukiewicz.appsensor.event.events;
 
 import org.owasp.appsensor.core.DetectionPoint;
 import org.owasp.appsensor.core.User;

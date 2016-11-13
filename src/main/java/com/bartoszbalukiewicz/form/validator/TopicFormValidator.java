@@ -1,8 +1,7 @@
 package com.bartoszbalukiewicz.form.validator;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointIE1Event;
+import com.bartoszbalukiewicz.appsensor.event.events.input.AppSensorDetectionPointIE1Event;
 import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
-import com.bartoszbalukiewicz.form.MessageForm;
 import com.bartoszbalukiewicz.form.TopicForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

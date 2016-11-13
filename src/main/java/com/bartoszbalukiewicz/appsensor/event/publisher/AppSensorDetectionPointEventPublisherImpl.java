@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.appsensor.event.publisher;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointEvent;
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import com.bartoszbalukiewicz.security.SecurityUtils;
 import org.owasp.appsensor.core.IPAddress;
 import org.owasp.appsensor.core.User;
@@ -36,8 +36,29 @@ public class AppSensorDetectionPointEventPublisherImpl implements AppSensorDetec
 
     }
 
+    @Override
+    public void publishDetectionPointEventWithIP(AppSensorDetectionPointEvent event, Authentication authentication) {
+        event.setAppSensorUser(createAppSensorUserWithIP(authentication));
+        eventPublisher.publishEvent(event);
+    }
+
+    @Override
+    public void publishDetectionPointEventWithSessionID(AppSensorDetectionPointEvent event, Authentication authentication) {
+        event.setAppSensorUser(createAppSensorUserWithSessionId(authentication));
+        eventPublisher.publishEvent(event);
+    }
+
     private User createAppSensorUser(Authentication authentication) {
         return new User(getUserName(authentication), getUserIp(authentication));
+    }
+
+    private User createAppSensorUserWithIP(Authentication authentication) {
+        IPAddress ipAddress = getUserIp(authentication);
+        return new User(ipAddress.toString(), ipAddress);
+    }
+
+    private User createAppSensorUserWithSessionId(Authentication authentication) {
+        return new User(getSessionid(authentication), getUserIp(authentication));
     }
 
     private IPAddress getUserIp(Authentication authentication) {
@@ -67,5 +88,12 @@ public class AppSensorDetectionPointEventPublisherImpl implements AppSensorDetec
         }
 
         return userName;
+    }
+
+    private String getSessionid(Authentication authentication) {
+        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
+        String sessionId = details.getSessionId();
+
+        return sessionId != null ? sessionId : "";
     }
 }

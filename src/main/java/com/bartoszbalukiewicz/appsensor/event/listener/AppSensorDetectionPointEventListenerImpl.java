@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.appsensor.event.listener;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointEvent;
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import org.owasp.appsensor.core.AppSensorClient;
 import org.owasp.appsensor.core.DetectionSystem;
 import org.owasp.appsensor.core.Event;

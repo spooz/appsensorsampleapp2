@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.appsensor.event.publisher;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointEvent;
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import org.springframework.security.core.Authentication;
 
 /**
@@ -11,6 +11,7 @@ public interface AppSensorDetectionPointEventPublisher {
 
     void publishDetectionPointEvent(AppSensorDetectionPointEvent event, Authentication authentication);
     void publishDetectionPointEvent(AppSensorDetectionPointEvent event);
-
+    void publishDetectionPointEventWithIP(AppSensorDetectionPointEvent event, Authentication authentication);
+    void publishDetectionPointEventWithSessionID(AppSensorDetectionPointEvent event, Authentication authentication);
 
 }

@@ -1,7 +1,6 @@
 package com.bartoszbalukiewicz.service;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointACE3Event;
-import com.bartoszbalukiewicz.appsensor.event.AppSesnorDetectionPointSTE1Event;
+import com.bartoszbalukiewicz.appsensor.event.events.access.AppSensorDetectionPointACE3Event;
 import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
 import com.bartoszbalukiewicz.security.CurrentUser;
 import com.bartoszbalukiewicz.security.SecurityUtils;

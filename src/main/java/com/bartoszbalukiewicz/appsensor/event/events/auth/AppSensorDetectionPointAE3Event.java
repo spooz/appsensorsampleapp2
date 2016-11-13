@@ -1,7 +1,7 @@
-package com.bartoszbalukiewicz.appsensor.event;
+package com.bartoszbalukiewicz.appsensor.event.events.auth;
 
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import org.owasp.appsensor.core.DetectionPoint;
-import org.owasp.appsensor.core.User;
 
 /**
  * Created by Bartek on 11.10.2016.

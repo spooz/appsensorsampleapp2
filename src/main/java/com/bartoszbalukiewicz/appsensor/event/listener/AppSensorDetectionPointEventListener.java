@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.appsensor.event.listener;
 
-import com.bartoszbalukiewicz.appsensor.event.AppSensorDetectionPointEvent;
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 

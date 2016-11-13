@@ -1,5 +1,6 @@
-package com.bartoszbalukiewicz.appsensor.event;
+package com.bartoszbalukiewicz.appsensor.event.events.trend;
 
+import com.bartoszbalukiewicz.appsensor.event.events.AppSensorDetectionPointEvent;
 import org.owasp.appsensor.core.DetectionPoint;
 
 /**
