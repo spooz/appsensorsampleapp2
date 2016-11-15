@@ -12,15 +12,6 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * This is an implementation of the {@link SecurityContextRepository}
- * that checks a {@link UserResponseCache} to determine whether or not
- * to logout the current user.
- *
- * @se ://stackoverflow.com/questions/29725829/spring-security-logout-lock-or-disable-user-by-name
- *
- * @author John Melton (jtmelton@gmail.com) http://www.jtmelton.com/
- */
 public class AppSensorSecurityContextRepository implements SecurityContextRepository {
 
     private final UserResponseCache appSensor;

@@ -6,15 +6,25 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by postgres on 2016-09-19.
  */
 public class SecurityUtils {
+
+    private static Set<String> commonUserNames = new HashSet<>();
+
+    static {
+        commonUserNames.add("admin");
+        commonUserNames.add("test");
+        commonUserNames.add("administrator");
+        commonUserNames.add("user");
+    }
+
+    public static boolean isCommonUserName(String username) {
+        return commonUserNames.contains(username);
+    }
 
     public static CurrentUser getAuthenticatedCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

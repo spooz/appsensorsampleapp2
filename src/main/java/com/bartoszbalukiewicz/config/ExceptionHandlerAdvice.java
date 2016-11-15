@@ -1,6 +1,6 @@
 package com.bartoszbalukiewicz.config;
 
-import com.bartoszbalukiewicz.appsensor.event.events.request.AppSensorDetectionPointRE4Event;
+import com.bartoszbalukiewicz.appsensor.event.events.request.AppSensorDetectionPointRE2Event;
 import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public void MethodNotSupportedException(Exception exception) {
-        eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointRE4Event());
+        eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointRE2Event());
         logger.error(exception);
     }
 

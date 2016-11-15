@@ -1,5 +1,6 @@
 package com.bartoszbalukiewicz.security;
 
+import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE12Event;
 import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE1Event;
 import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE2Event;
 import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
@@ -34,6 +35,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
+
+        if(SecurityUtils.isCommonUserName(username)) {
+            eventPublisher.publishDetectionPointEventWithSessionID(new AppSensorDetectionPointAE12Event(), authentication);
+            throw new BadCredentialsException("1000");
+        }
+
         String password = (String) authentication.getCredentials();
 
         User dbUser = userService.findByEmail(username);
