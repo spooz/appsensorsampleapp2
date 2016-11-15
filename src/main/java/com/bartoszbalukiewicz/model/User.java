@@ -32,6 +32,9 @@ public class User {
     @Column(name="is_admin")
     private Boolean isAdmin = Boolean.FALSE;
 
+    @Column(name="is_enabled")
+    private Boolean isEnabled = Boolean.TRUE;
+
     @Transient
     public void hashPassword() {
         if (this.password != null) {
@@ -62,5 +65,13 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public Boolean getEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        isEnabled = enabled;
     }
 }

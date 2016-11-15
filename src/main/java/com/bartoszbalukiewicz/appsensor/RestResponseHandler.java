@@ -15,7 +15,7 @@ import javax.inject.Named;
  * Created by Bartek on 26.09.2016.
  */
 @Component
-public class NoopResponseHandler implements ResponseHandler {
+public class RestResponseHandler implements ResponseHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -37,7 +37,6 @@ public class NoopResponseHandler implements ResponseHandler {
         }
 
         if(action.equals(DISABLE_USER)) {
-            springSecurityUserManager.logout(user);
             springSecurityUserManager.disable(user);
             logger.info("Disabling user: " + user.getUsername());
         }

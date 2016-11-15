@@ -1,7 +1,6 @@
 package com.bartoszbalukiewicz.appsensor;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.owasp.appsensor.core.Response;
@@ -13,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Date;
 
 /**
  * Created by Bartek on 06.11.2016.
@@ -27,7 +25,7 @@ public class ResponseChecker {
     private RestEventManager restEventManager;
 
     @Autowired
-    private NoopResponseHandler noopResponseHandler;
+    private RestResponseHandler noopResponseHandler;
 
     private DateTime lastCheck = new DateTime();
     DateTimeFormatter fmt = ISODateTimeFormat.dateTime();

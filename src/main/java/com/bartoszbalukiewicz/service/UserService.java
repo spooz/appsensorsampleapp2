@@ -5,6 +5,7 @@ import com.bartoszbalukiewicz.model.User;
 import com.bartoszbalukiewicz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import java.util.Set;
  * Created by Bartek on 18.09.2016.
  */
 @Service
+@Transactional
 public class UserService {
 
     private UserRepository userRepository;
@@ -23,6 +25,10 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public void update(User user) {
+        userRepository.save(user);
     }
 
     public User registerUser(RegisterForm form) {

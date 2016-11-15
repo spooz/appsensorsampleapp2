@@ -34,16 +34,9 @@ public class SpringSecurityUserManager implements UserManager {
     @Autowired
     private UserResponseCache userResponseCache;
 
+    @Autowired
     private UserDetailsManager userDetailsManager;
 
-    @PostConstruct
-    public void initialize() {
-        if(builder != null &&
-                builder.getDefaultUserDetailsService() != null &&
-                builder.getDefaultUserDetailsService() instanceof UserDetailsManager) {
-            userDetailsManager = (UserDetailsManager)builder.getDefaultUserDetailsService();
-        }
-    }
 
     /**
      * {@inheritDoc}

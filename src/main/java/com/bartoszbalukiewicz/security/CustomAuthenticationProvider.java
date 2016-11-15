@@ -6,12 +6,11 @@ import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointE
 import com.bartoszbalukiewicz.model.User;
 import com.bartoszbalukiewicz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +28,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
@@ -39,6 +41,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if(dbUser == null)
             throw new BadCredentialsException("1000");
 
+        if(!dbUser.getEnabled())
+            throw new DisabledException("1001");
+
         if(!passwordEncoder.matches(password, dbUser.getPassword())) {
             eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointAE2Event(),authentication);
             throw new BadCredentialsException("1000");
@@ -47,7 +52,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         eventPublisher.publishDetectionPointEventWithSessionID(new AppSensorDetectionPointAE1Event(),authentication);
 
-        return new UsernamePasswordAuthenticationToken(username, password, AuthorityUtils.NO_AUTHORITIES);
+        return new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(username), password, AuthorityUtils.NO_AUTHORITIES);
     }
 
     @Override
