@@ -17,6 +17,8 @@ import javax.inject.Named;
 @Component
 public class RestResponseHandler implements ResponseHandler {
 
+    private String DISABLE_IP = "disableIp";
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired

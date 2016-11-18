@@ -26,10 +26,10 @@ public class IndexController {
 
 
     @GetMapping(value = "/login")
-        public String login(@RequestParam Optional<String> error, Model model) {
+    public String login(@RequestParam Optional<String> error, Model model) {
         if(error.isPresent())
             model.addAttribute("error", true);
         return "login";
-        }
+    }
 
 }
