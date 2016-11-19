@@ -36,28 +36,32 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
 
+        // todo: common email? email whitelist?
         if(SecurityUtils.isCommonUserName(username)) {
             eventPublisher.publishDetectionPointEventWithSessionID(new AppSensorDetectionPointAE12Event(), authentication);
-            throw new BadCredentialsException("1000");
+            throw new BadCredentialsException("Used a common username");
         }
 
         String password = (String) authentication.getCredentials();
 
         User dbUser = userService.findByEmail(username);
 
-        if(dbUser == null)
-            throw new BadCredentialsException("1000");
-
-        if(!dbUser.getEnabled())
-            throw new DisabledException("1001");
-
-        if(!passwordEncoder.matches(password, dbUser.getPassword())) {
-            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointAE2Event(),authentication);
-            throw new BadCredentialsException("1000");
+        if(dbUser == null) {
+            eventPublisher.publishDetectionPointEventWithIP(new AppSensorDetectionPointAE1Event(),authentication);
+            throw new BadCredentialsException("No such user");
         }
 
 
-        eventPublisher.publishDetectionPointEventWithSessionID(new AppSensorDetectionPointAE1Event(),authentication);
+        if(!dbUser.getEnabled())
+            throw new DisabledException("User is disabled");
+
+        if(!passwordEncoder.matches(password, dbUser.getPassword())) {
+            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointAE2Event(),authentication);
+            throw new BadCredentialsException("Bad password");
+        }
+
+
+
 
         return new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(username), password, AuthorityUtils.NO_AUTHORITIES);
     }

@@ -54,7 +54,7 @@ public class AppSensorDetectionPointEventPublisherImpl implements AppSensorDetec
 
     private User createAppSensorUserWithIP(Authentication authentication) {
         IPAddress ipAddress = getUserIp(authentication);
-        return new User(ipAddress.toString(), ipAddress);
+        return new User(ipAddress.getAddressAsString(), ipAddress);
     }
 
     private User createAppSensorUserWithSessionId(Authentication authentication) {

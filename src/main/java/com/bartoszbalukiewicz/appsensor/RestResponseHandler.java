@@ -1,6 +1,7 @@
 package com.bartoszbalukiewicz.appsensor;
 
 import com.bartoszbalukiewicz.appsensor.security.response.SpringSecurityUserManager;
+import com.bartoszbalukiewicz.security.ip.BannedIpStore;
 import org.owasp.appsensor.core.Response;
 import org.owasp.appsensor.core.User;
 import org.owasp.appsensor.core.response.ResponseHandler;
@@ -24,6 +25,9 @@ public class RestResponseHandler implements ResponseHandler {
     @Autowired
     private SpringSecurityUserManager springSecurityUserManager;
 
+    @Autowired
+    private BannedIpStore bannedIpStore;
+
     @Override
     public void handle(Response response) {
         String action = response.getAction();
@@ -41,6 +45,11 @@ public class RestResponseHandler implements ResponseHandler {
         if(action.equals(DISABLE_USER)) {
             springSecurityUserManager.disable(user);
             logger.info("Disabling user: " + user.getUsername());
+        }
+
+        if(action.equals(DISABLE_IP)) {
+            bannedIpStore.ban(user.getIPAddress().getAddressAsString());
+            logger.info("Banning ip: " + user.getIPAddress().getAddressAsString());
         }
 
 

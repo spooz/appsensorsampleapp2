@@ -5,6 +5,7 @@ import org.owasp.appsensor.core.Response;
 import org.owasp.appsensor.reporting.WebSocketJsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,8 @@ public class WebSocketClientAppSensor {
 
     private Session localSession = null;
 
-    private static final String WEBSOCKET_HOST_URL = "ws://localhost:8085/dashboard";
+    @Value("${appsensor.socket.dashboard}")
+   private String WEBSOCKET_HOST_URL;
 
 
     private Gson gson = new Gson();
@@ -58,7 +60,6 @@ public class WebSocketClientAppSensor {
         if(object.getDataType().equals("response"))
             logger.info("GOT MESSAGE FROM APP SENSOR SERVER: " + message);
 
-        Response response = (Response) object.getDataValue();
 
         return null;
     }

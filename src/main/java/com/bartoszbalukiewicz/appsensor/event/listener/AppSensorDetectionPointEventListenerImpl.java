@@ -42,7 +42,7 @@ public class AppSensorDetectionPointEventListenerImpl implements AppSensorDetect
 
     //TODO
     private String getApplicationIp() {
-        return "192.168.1.1";
+        return "5.206.127.255";
     }
 
 
