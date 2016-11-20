@@ -26,6 +26,7 @@ public class User {
     @Column(name="email", nullable = false, updatable = false)
     private String email;
 
+    @NotEmpty
     @Column(name="password", nullable = false)
     private String password;
 
@@ -34,6 +35,10 @@ public class User {
 
     @Column(name="is_enabled")
     private Boolean isEnabled = Boolean.TRUE;
+
+    @NotEmpty
+    @Column(name="register_country")
+    private String registerCountry;
 
     @Transient
     public void hashPassword() {
@@ -73,5 +78,13 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public String getRegisterCountry() {
+        return registerCountry;
+    }
+
+    public void setRegisterCountry(String registerCountry) {
+        this.registerCountry = registerCountry;
     }
 }

@@ -2,7 +2,9 @@ package com.bartoszbalukiewicz.controller;
 
 import com.bartoszbalukiewicz.form.RegisterForm;
 import com.bartoszbalukiewicz.form.validator.RegisterFormValidator;
+import com.bartoszbalukiewicz.security.SecurityUtils;
 import com.bartoszbalukiewicz.service.UserService;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -38,11 +41,11 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String postRegister(@Valid RegisterForm registerForm, BindingResult bindingResult) {
+    public String postRegister(HttpServletRequest request, @Valid RegisterForm registerForm, BindingResult bindingResult) {
         if(bindingResult.hasErrors())
             return "register";
 
-        userService.registerUser(registerForm);
+        userService.registerUser(registerForm, SecurityUtils.getIpAddress(request));
 
         return "redirect:/login";
 

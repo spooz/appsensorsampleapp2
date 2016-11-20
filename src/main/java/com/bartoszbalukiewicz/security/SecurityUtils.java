@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -44,6 +45,15 @@ public class SecurityUtils {
 
     public static Authentication getAuthentiaction() {
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    public static String getIpAddress(HttpServletRequest request) {
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+
+        return ipAddress;
     }
 
 }

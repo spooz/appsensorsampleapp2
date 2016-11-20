@@ -1,5 +1,7 @@
 package com.bartoszbalukiewicz.security.ip;
 
+import com.bartoszbalukiewicz.security.SecurityUtils;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
@@ -25,10 +27,7 @@ public class SecurityIpFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String ipAddress = request.getHeader("X-FORWARDED-FOR");
-        if (ipAddress == null) {
-            ipAddress = request.getRemoteAddr();
-        }
+        String ipAddress = SecurityUtils.getIpAddress(request);
 
         if(ipAddress == null || bannedIpStore.isBanned(ipAddress)) {
             accessDeniedHandler.handle(request, response, new AccessDeniedException("Ip banned"));
