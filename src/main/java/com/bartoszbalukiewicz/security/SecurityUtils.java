@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -52,8 +53,12 @@ public class SecurityUtils {
         if (ipAddress == null) {
             ipAddress = request.getRemoteAddr();
         }
-
         return ipAddress;
+    }
+
+    public static String getIpAddress(Authentication authentication) {
+        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
+        return details.getRemoteAddress();
     }
 
 }

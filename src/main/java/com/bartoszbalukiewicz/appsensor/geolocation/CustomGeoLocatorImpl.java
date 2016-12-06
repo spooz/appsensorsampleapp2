@@ -40,7 +40,7 @@ public class CustomGeoLocatorImpl implements CustomGeoLocator {
         try {
             if(reader != null) {
 
-               c = reader.city(address).getCountry();
+               c = reader.city(InetAddresses.forString("87.207.218.151")).getCountry();
 
             }
         } catch (GeoIp2Exception | IOException var4) {
@@ -67,8 +67,7 @@ public class CustomGeoLocatorImpl implements CustomGeoLocator {
 
             try {
                 if(reader != null) {
-                    Location e = reader.city(address).getLocation();
-                    Country c = reader.city(address).getCountry();
+                    Location e = reader.city(InetAddresses.forString("87.207.218.151")).getLocation();
                     geoLocation = new GeoLocation(e.getLatitude().doubleValue(), e.getLongitude().doubleValue());
                 }
             } catch (GeoIp2Exception | IOException var4) {

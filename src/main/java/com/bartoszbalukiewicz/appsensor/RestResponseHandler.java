@@ -2,6 +2,7 @@ package com.bartoszbalukiewicz.appsensor;
 
 import com.bartoszbalukiewicz.appsensor.security.response.SpringSecurityUserManager;
 import com.bartoszbalukiewicz.security.ip.BannedIpStore;
+import com.bartoszbalukiewicz.service.NotificationService;
 import org.owasp.appsensor.core.Response;
 import org.owasp.appsensor.core.User;
 import org.owasp.appsensor.core.response.ResponseHandler;
@@ -19,6 +20,7 @@ import javax.inject.Named;
 public class RestResponseHandler implements ResponseHandler {
 
     private String DISABLE_IP = "disableIp";
+    private String NOTIFY_ADMIN = "notifyAdmin";
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,6 +30,9 @@ public class RestResponseHandler implements ResponseHandler {
     @Autowired
     private BannedIpStore bannedIpStore;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public void handle(Response response) {
         String action = response.getAction();
@@ -35,6 +40,7 @@ public class RestResponseHandler implements ResponseHandler {
 
         if(action.equals(LOG)) {
             logger.info("Response for user: " + user.getUsername());
+            logger.info(response.toString());
         }
 
         if(action.equals(LOGOUT)) {
@@ -50,6 +56,11 @@ public class RestResponseHandler implements ResponseHandler {
         if(action.equals(DISABLE_IP)) {
             bannedIpStore.ban(user.getIPAddress().getAddressAsString());
             logger.info("Banning ip: " + user.getIPAddress().getAddressAsString());
+        }
+
+        if(action.equals(NOTIFY_ADMIN)) {
+            notificationService.add(user.getUsername(), user.getIPAddress().getAddressAsString());
+            logger.info("New admin notification for: " + user.getUsername());
         }
 
 

@@ -42,8 +42,9 @@ public class WebSocketClientAppSensor {
             try {
                 localSession = client.connectToServer(this, new URI(WEBSOCKET_HOST_URL));
                 webSocketInitialized = true;
+                logger.info("CONNECTED SOCKET");
             } catch (Exception e) {
-                logger.warn("Connection to websocket host [" + WEBSOCKET_HOST_URL + "] failed.", e);
+                logger.info("Connection to websocket host [" + WEBSOCKET_HOST_URL + "] failed.", e);
             }
         }
     }

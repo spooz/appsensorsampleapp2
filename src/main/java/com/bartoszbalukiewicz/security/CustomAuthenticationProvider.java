@@ -1,11 +1,14 @@
 package com.bartoszbalukiewicz.security;
 
+import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointA13Event;
 import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE12Event;
 import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE1Event;
 import com.bartoszbalukiewicz.appsensor.event.events.auth.AppSensorDetectionPointAE2Event;
 import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
+import com.bartoszbalukiewicz.appsensor.geolocation.CustomGeoLocator;
 import com.bartoszbalukiewicz.model.User;
 import com.bartoszbalukiewicz.service.UserService;
+import com.maxmind.geoip2.record.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -32,6 +35,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private CustomGeoLocator customGeoLocator;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
@@ -51,7 +57,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("No such user");
         }
 
-
         if(!dbUser.getEnabled())
             throw new DisabledException("User is disabled");
 
@@ -60,10 +65,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Bad password");
         }
 
-
-
-
+        getLoginCountry(authentication, dbUser);
         return new UsernamePasswordAuthenticationToken(userDetailsService.loadUserByUsername(username), password, AuthorityUtils.NO_AUTHORITIES);
+    }
+
+    private void getLoginCountry(Authentication authentication, User dbUser) {
+        Country loginCountry = customGeoLocator.getCountry(SecurityUtils.getIpAddress(authentication));
+        if(!loginCountry.getIsoCode().equals(dbUser.getRegisterCountry())) {
+            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointA13Event());
+        }
     }
 
     @Override
