@@ -16,9 +16,12 @@ public class AdminController {
     private ForumService forumService;
 
     @GetMapping("/topic/{id}/delete")
-    public void deleteTopic(@PathVariable Long id) {
+    public String deleteTopic(@PathVariable Long id) {
         forumService.deleteTopic(id);
+        return "redirect:/";
     }
 
+    @GetMapping("/message/{id}/delete")
+    public void deleteMessage(@PathVariable Long id) {forumService.deleteMessage(id);}
 
 }

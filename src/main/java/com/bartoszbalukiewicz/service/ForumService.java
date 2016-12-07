@@ -5,8 +5,10 @@ import com.bartoszbalukiewicz.form.TopicForm;
 import com.bartoszbalukiewicz.model.Message;
 import com.bartoszbalukiewicz.model.Topic;
 import com.bartoszbalukiewicz.model.view.MessageView;
+import com.bartoszbalukiewicz.model.view.NotificationView;
 import com.bartoszbalukiewicz.model.view.TopicView;
 import com.bartoszbalukiewicz.repository.MessageRepository;
+import com.bartoszbalukiewicz.repository.NotificationRepository;
 import com.bartoszbalukiewicz.repository.TopicRepository;
 import com.bartoszbalukiewicz.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class ForumService {
     private MessageRepository messageRepository;
 
     @Autowired
+    private NotificationRepository notificationRepository;
+
+    @Autowired
     private UserService userService;
 
     @Transactional
@@ -46,9 +51,20 @@ public class ForumService {
         return topicRepository.getAll();
     }
 
+    public Topic findById(Long id) { return topicRepository.findOne(id);
+    }
+
     @PreAuthorize("@securityService.isAdmin()")
     public void deleteTopic(Long id) {
         topicRepository.delete(id);
+    }
+
+    @PreAuthorize("@securityService.isAdmin()")
+    public void deleteMessage(Long id) { messageRepository.delete(id);}
+
+    @PreAuthorize("@securityService.isAdmin()")
+    public List<NotificationView> getNotifications() {
+        return notificationRepository.getAll();
     }
 
     //TODO: CHECH IF TOPIC EXSITS
@@ -69,30 +85,4 @@ public class ForumService {
 
         return message;
     }
-
-
-   /* public List<Topic> getTopis() {
-        return topicRepository.findAll();
-    }
-
-    public List<Message> getMessagesForTopic(Long topicId) {
-        return messageRepository.getMessagesByTopicId(topicId);
-    }
-
-    public Topic createTopic(TopicForm form) {
-
-    }
-
-    public Topic editTopic(Long topicId, TopicForm form) {
-
-    }
-
-    public Message createMessage(Long topicId, MessageForm form) {
-
-    }
-
-    public Message editMessage(Long messageId, MessageForm form) {
-
-    }*/
-
 }

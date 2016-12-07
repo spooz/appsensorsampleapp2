@@ -62,6 +62,7 @@ public class ForumController {
     @GetMapping("/topic/{topicId}/messages")
     public String messages (@PathVariable("topicId") Long topicId, Model model){
         model.addAttribute("topicId", topicId);
+        model.addAttribute("topic", forumService.findById(topicId));
         model.addAttribute("messages", forumService.getMessagesForTopic(topicId));
         model.addAttribute("messageForm", new MessageForm());
         return "messages";

@@ -39,9 +39,7 @@ public class CustomGeoLocatorImpl implements CustomGeoLocator {
 
         try {
             if(reader != null) {
-
                c = reader.city(InetAddresses.forString("87.207.218.151")).getCountry();
-
             }
         } catch (GeoIp2Exception | IOException var4) {
             if(this.logger != null) {

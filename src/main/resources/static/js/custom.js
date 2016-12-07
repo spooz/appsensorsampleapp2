@@ -87,7 +87,12 @@ function initTopicTable() {
                 }
             },
             {"data" : "description"},
-            {"data" : "author"}
+            {"data" : "author"},
+            {"data":  "title",
+                "fnCreatedCell" : function(nTd, sData, oData, iRow, iCol) {
+                    $(nTd).html("<a href='/topic/" + oData.id +"/delete'>Delete</a>");
+                }
+            }
         ]
     });
 }

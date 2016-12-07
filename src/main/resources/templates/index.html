@@ -21,15 +21,14 @@
 
 </div>
 <!--top-Header-menu-->
-<div id="user-nav" class="navbar navbar-inverse">
-    <ul class="nav">
 
-
-    </ul>
-</div>
 <div class="body-wrapper">
+    <div th:if="${currentUser.isAdmin()}" class="row" style="margin-bottom: 10px">
+        <a href="/admin" class="btn btn-primary">Admin panel</a>
+
+    </div>
     <div class="row">
-        <button type="button" class="btn btn-success" onclick="showTopicModal()">Add</button>
+        <button type="button" class="btn btn-success" onclick="showTopicModal()">Add topic</button>
 
     </div>
     <div class="row">
@@ -40,6 +39,7 @@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Author</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
