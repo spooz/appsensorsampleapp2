@@ -23,15 +23,19 @@
 
 <div class="body-wrapper">
 
-    <div class="row">
+    <div class="row" style="margin-top: 20px;">
         <div><a href="/"  class="btn btn-primary">Back</a> </div>
         <h3 th:text="${topic.title}"></h3>
         <h4>Messages</h4>
         <div th:each="message : ${messages}">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <b th:text="${message.created}"></b><p th:text="${message.title}"></p>
-                <p th:text="${message.author}"></p>
+                <span th:text="${message.created}"></span> <b th:text="${message.title}"></b>
+                <p>User: <span th:text="${message.author}"></span> </p>
+                <p th:if="${currentUser.isAdmin()}" class="row" style="margin-bottom: 10px">
+                    <a th:href="|/messages/${message.id}" class="btn btn-warning">Delete</a>
+
+                </p>
             </div>
             <div class="panel-body">
                 <p th:text="${message.message}"></p>
