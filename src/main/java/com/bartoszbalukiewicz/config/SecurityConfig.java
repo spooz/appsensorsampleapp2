@@ -2,9 +2,9 @@ package com.bartoszbalukiewicz.config;
 
 
 import com.bartoszbalukiewicz.appsensor.security.context.AppSensorSecurityContextRepository;
-import com.bartoszbalukiewicz.security.ip.BannedIpStore;
-import com.bartoszbalukiewicz.security.ip.MemoryBannedIpStore;
-import com.bartoszbalukiewicz.security.ip.SecurityIpFilter;
+import com.bartoszbalukiewicz.appsensor.security.ip.BannedIpStore;
+import com.bartoszbalukiewicz.appsensor.security.ip.MemoryBannedIpStore;
+import com.bartoszbalukiewicz.appsensor.security.ip.SecurityIpFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;

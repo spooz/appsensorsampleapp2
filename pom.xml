@@ -25,6 +25,21 @@
 		<appsensor.version>2.3.0</appsensor.version>
 	</properties>
 
+	<repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<id>smsapi</id>
+			<name>smsapi</name>
+			<url>http://labs.smsapi.com/maven/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -205,6 +220,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>pl.smsapi</groupId>
+			<artifactId>smsapi-lib</artifactId>
+			<version>2.2</version>
 		</dependency>
 
 	</dependencies>

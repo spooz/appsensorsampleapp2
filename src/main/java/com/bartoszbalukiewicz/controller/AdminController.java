@@ -2,6 +2,7 @@ package com.bartoszbalukiewicz.controller;
 
 import com.bartoszbalukiewicz.service.ForumService;
 import com.bartoszbalukiewicz.service.NotificationService;
+import com.bartoszbalukiewicz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class AdminController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/topic/{id}/delete")
     public String deleteTopic(@PathVariable Long id) {
         forumService.deleteTopic(id);
@@ -37,6 +41,7 @@ public class AdminController {
     public String getAdminPage(Model model) {
 
         model.addAttribute("notifications", notificationService.findAll());
+        model.addAttribute("users", userService.findAll());
 
         return "admin";
     }

@@ -48,8 +48,11 @@
 
 <div class="container">
 
-
     <form id="loginform" class="form-signin" action="/login" method="POST">
+
+            <div th:if="${error}" class="alert alert-danger" style="margin-bottom: 10px;">
+              <strong>Login error</strong>
+            </div>
         <div class="control-group">
             <div class="controls">
                 <div class="main_input_box">

@@ -1,18 +1,17 @@
 package com.bartoszbalukiewicz.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Bartek on 06.12.2016.
  */
 @Entity
+@SequenceGenerator(name = "seq_notification", sequenceName = "seq_notification")
 public class Notification {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "seq_notification")
     private Long id;
 
     private Date time = new Date();

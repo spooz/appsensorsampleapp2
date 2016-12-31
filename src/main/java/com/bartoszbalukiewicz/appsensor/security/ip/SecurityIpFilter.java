@@ -1,7 +1,6 @@
-package com.bartoszbalukiewicz.security.ip;
+package com.bartoszbalukiewicz.appsensor.security.ip;
 
 import com.bartoszbalukiewicz.security.SecurityUtils;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;

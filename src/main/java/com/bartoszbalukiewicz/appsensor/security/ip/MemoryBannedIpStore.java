@@ -1,4 +1,4 @@
-package com.bartoszbalukiewicz.security.ip;
+package com.bartoszbalukiewicz.appsensor.security.ip;
 
 import java.util.HashSet;
 import java.util.Set;

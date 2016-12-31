@@ -40,6 +40,9 @@ public class User {
     @Column(name="register_country")
     private String registerCountry;
 
+    @Column
+    private String notificationsPhone;
+
     @Transient
     public void hashPassword() {
         if (this.password != null) {
@@ -86,5 +89,13 @@ public class User {
 
     public void setRegisterCountry(String registerCountry) {
         this.registerCountry = registerCountry;
+    }
+
+    public String getNotificationsPhone() {
+        return notificationsPhone;
+    }
+
+    public void setNotificationsPhone(String notificationsPhone) {
+        this.notificationsPhone = notificationsPhone;
     }
 }

@@ -71,8 +71,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private void getLoginCountry(Authentication authentication, User dbUser) {
         Country loginCountry = customGeoLocator.getCountry(SecurityUtils.getIpAddress(authentication));
-        if(!loginCountry.getIsoCode().equals(dbUser.getRegisterCountry())) {
-            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointA13Event());
+        if(loginCountry != null && !loginCountry.getIsoCode().equals(dbUser.getRegisterCountry())) {
+            eventPublisher.publishDetectionPointEvent(new AppSensorDetectionPointA13Event(), authentication);
         }
     }
 

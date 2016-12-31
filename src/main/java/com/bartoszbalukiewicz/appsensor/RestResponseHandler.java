@@ -1,7 +1,7 @@
 package com.bartoszbalukiewicz.appsensor;
 
 import com.bartoszbalukiewicz.appsensor.security.response.SpringSecurityUserManager;
-import com.bartoszbalukiewicz.security.ip.BannedIpStore;
+import com.bartoszbalukiewicz.appsensor.security.ip.BannedIpStore;
 import com.bartoszbalukiewicz.service.NotificationService;
 import org.owasp.appsensor.core.Response;
 import org.owasp.appsensor.core.User;
@@ -10,8 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Named;
 
 /**
  * Created by Bartek on 26.09.2016.

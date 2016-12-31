@@ -1,4 +1,4 @@
-package com.bartoszbalukiewicz.security.ip;
+package com.bartoszbalukiewicz.appsensor.security.ip;
 
 /**
  * Created by b.balukiewicz on 18.11.2016.
