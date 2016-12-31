@@ -1,5 +1,7 @@
 package com.bartoszbalukiewicz.service;
 
+import com.bartoszbalukiewicz.appsensor.event.events.trend.AppSensorDetectionPointSTE4Event;
+import com.bartoszbalukiewicz.appsensor.event.publisher.AppSensorDetectionPointEventPublisher;
 import com.bartoszbalukiewicz.appsensor.geolocation.CustomGeoLocator;
 import com.bartoszbalukiewicz.form.RegisterForm;
 import com.bartoszbalukiewicz.model.User;
@@ -22,11 +24,13 @@ public class UserService {
 
     private UserRepository userRepository;
     private CustomGeoLocator geoLocator;
+    private AppSensorDetectionPointEventPublisher publisher;
 
     @Autowired
-    public UserService(UserRepository userRepository, CustomGeoLocator geoLocator)  {
+    public UserService(UserRepository userRepository, CustomGeoLocator geoLocator, AppSensorDetectionPointEventPublisher publisher)  {
         this.userRepository = userRepository;
         this.geoLocator = geoLocator;
+        this.publisher = publisher;
     }
 
     public List<User> findAll() {
@@ -35,6 +39,10 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<User> findByIsAdmin() {
+        return userRepository.findByIsAdmin(Boolean.TRUE);
     }
 
     public void update(User user) {
@@ -51,6 +59,9 @@ public class UserService {
         user.setPassword(form.getPassword());
         user.hashPassword();
         userRepository.save(user);
+
+        publisher.publishDetectionPointEvent(new AppSensorDetectionPointSTE4Event());
+
         return user;
     }
 }

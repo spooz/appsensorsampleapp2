@@ -22,7 +22,7 @@ import java.util.List;
  * Created by Bartek on 06.12.2016.
  */
 @Service
-
+@PreAuthorize("@securityService.isAdmin()")
 public class NotificationService {
 
     private Client smsApiClient;
@@ -43,13 +43,12 @@ public class NotificationService {
 
         List<User> admins = userRepository.findByIsAdmin(Boolean.TRUE);
         for(User admin : admins) {
-            if(admin.getNotificationsPhone() != null && !admin.getNotificationsPhone().isEmpty()) {
+            if(!admin.getNotificationsPhone().isEmpty()) {
                 sendSMS(admin.getNotificationsPhone(), source + " " + ipAddress);
             }
         }
     }
 
-    @PreAuthorize("@securityService.isAdmin()")
     public List<NotificationView> findAll() {
         return notificationRepository.getAll();
     }
@@ -57,7 +56,7 @@ public class NotificationService {
     @PostConstruct
     public void initClient() throws ClientException {
         smsApiClient = new Client("bartosz.balukiewicz@cryptomage.io");
-        smsApiClient.setPasswordHash("166118d9fe52df1659e879365ce16b06");
+        smsApiClient.setPasswordHash("gHbPADRl8H9M0HOJgdKTuTibDLETx9XP1LHdcIU0");
         smsApiFactory = new SmsFactory(smsApiClient);
     }
 

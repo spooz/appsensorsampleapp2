@@ -19,6 +19,7 @@ public class RestResponseHandler implements ResponseHandler {
 
     private String DISABLE_IP = "disableIp";
     private String NOTIFY_ADMIN = "notifyAdmin";
+    private String NOTIFY_USER = "notifyUser";
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
